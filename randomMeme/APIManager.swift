@@ -18,6 +18,7 @@ func loadMeme(completionHandler: (()->Void)?) {
             print("no data")
             return
         }
+        
         meme = try? JSONDecoder().decode(Meme.self, from: data!)
         
         completionHandler?()

@@ -44,5 +44,14 @@ class ViewController: UIViewController {
     @objc func presentMemeViewController() {
         let oneMemeViewController = OneMemeViewController()
         present(oneMemeViewController, animated: true, completion: nil)
+        loadMeme {
+            DispatchQueue.main.async {
+                guard let meme = meme,
+                      let data = try? Data(contentsOf: meme.url) else { return }
+                oneMemeViewController.titleLabel.text = meme.title
+                oneMemeViewController.memeImageView.image = UIImage(data: data)
+                oneMemeViewController.activityIndicator.stopAnimating()
+            }
+        }
     }
 }
